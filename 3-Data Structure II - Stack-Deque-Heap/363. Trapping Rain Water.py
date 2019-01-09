@@ -20,27 +20,46 @@ class Solution:
         # write your code here
         if not heights:
             return 0
-        
-        left_max = []
-        curt_max = -sys.maxsize
-        for hight in heights:
-            curt_max = max(curt_max, hight)
-            left_max.append(curt_max)
-        
-        right_max = []
-        curt_max = -sys.maxsize
-        for hight in reversed(heights):
-            curt_max = max(curt_max, hight)
-            right_max.append(curt_max)
-        
-        right_max = right_max[::-1]
-        
-        print(left_max)
-        print(right_max)
-        
+            
+        left, right = 0, len(heights) - 1
+        left_max, right_max = heights[left], heights[right]
         water = 0
-        n = len(heights)
-        for i in range(n):
-            water += (min(left_max[i], right_max[i]) - heights[i])
-            print(water)
+        while left <= right:
+            if left_max < right_max:
+                left_max = max(left_max, heights[left])
+                water += left_max - heights[left]
+                left += 1
+            else:
+                right_max = max(right_max, heights[right])
+                water += right_max - heights[right]
+                right -= 1
+                    
         return water
+        
+        
+        # if not heights:
+        #     return 0
+        
+        # left_max = []
+        # curt_max = -sys.maxsize
+        # for hight in heights:
+        #     curt_max = max(curt_max, hight)
+        #     left_max.append(curt_max)
+        
+        # right_max = []
+        # curt_max = -sys.maxsize
+        # for hight in reversed(heights):
+        #     curt_max = max(curt_max, hight)
+        #     right_max.append(curt_max)
+        
+        # right_max = right_max[::-1]
+        
+        # print(left_max)
+        # print(right_max)
+        
+        # water = 0
+        # n = len(heights)
+        # for i in range(n):
+        #     water += (min(left_max[i], right_max[i]) - heights[i])
+        #     print(water)
+        # return water
